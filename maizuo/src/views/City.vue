@@ -1,6 +1,6 @@
 <template>
 	<div id="city">
-		<Header title="请选择城市" icon="icon iconfont icon-cuowu"></Header>
+		<Header title="请选择城市" path="home" :showRight="false" icon="icon iconfont icon-cuowu"></Header>
 		<mt-search
 			v-model="value"
 			@input="getValue"
@@ -8,38 +8,104 @@
 			placeholder="输入城市名或拼音"
 			:show="false"
 		>
-			<mt-cell v-for="(item,i) in result" :key="i" @click="getCity(item)">
-				<div v-show="item.indexOf(value)!==-1" @click="getCity(item)">{{item}}</div>
+			<mt-cell v-for="(item,i) in result" :key="i">
+				<div
+					@click="getCityName(item.value)"
+					v-show="item.en.toLocaleUpperCase().indexOf(value.toLocaleUpperCase()) !==-1"
+				>{{item.value}}</div>
 			</mt-cell>
 		</mt-search>
 		<mt-index-list>
-			<mt-index-section index="A">
-				<mt-cell title="Aaron"></mt-cell>
+			<mt-index-section v-for="(value,i) in en" :index="value" :key="i">
+				<div v-for="(city,key) in moveCity" :key="key" @click="getCityName(city.value)">
+					<mt-cell
+						v-if="city.en.slice(0,1).toLocaleUpperCase().indexOf(value) !==-1"
+						:title="city.value"
+					></mt-cell>
+				</div>
 			</mt-index-section>
 		</mt-index-list>
 	</div>
 </template>
 <script>
 import Header from "../components/Header.vue";
-import { Search } from "mint-ui";
-import { IndexList, IndexSection } from "mint-ui";
+import { Search, IndexList, IndexSection, Indicator } from "mint-ui";
+import { mapState, mapActions, mapGetters } from "vuex";
 export default {
 	data() {
 		return {
-			result: ["1", "2", "4", "5", "11", "111", "222"],
-			value: ""
+			result: [],
+			value: "",
+			moveCity: [],
+			en: [
+				"A",
+				"B",
+				"C",
+				"D",
+				"E",
+				"F",
+				"G",
+				"H",
+				"I",
+				"J",
+				"K",
+				"L",
+				"M",
+				"N",
+				"O",
+				"P",
+				"Q",
+				"R",
+				"S",
+				"T",
+				"U",
+				"V",
+				"W",
+				"X",
+				"Y",
+				"Z"
+			]
 		};
 	},
 	components: {
 		Header
 	},
+	computed: {
+		...mapState(["cityList"]),
+		...mapGetters(["getCityList"])
+	},
 	methods: {
 		getValue() {
-			// console.log(this.value);
+			this.result = [];
+			this.getCityList.map((item, i) => {
+				if (
+					item.en
+						.toLocaleUpperCase()
+						.indexOf(this.value.toLocaleUpperCase()) !== -1
+				) {
+					this.result.push({ value: item.value, en: item.en });
+				}
+			});
 		},
-		getCity(val) {
-			console.log(val);
-		}
+		getCityName(val) {
+			sessionStorage.city = val;
+			if (sessionStorage.city) {
+				this.$router.push({ name: "home" });
+			}
+		},
+		...mapActions(["getCity"])
+	},
+	created() {
+		Indicator.open({ text: "加载城市", spinnerType: "fading-circle" });
+		this.getCity({
+			url: "/getCity",
+			callback: () => {
+				this.$nextTick(() => {
+					this.moveCity = this.getCityList;
+					Indicator.close();
+				});
+			}
+		});
 	}
 };
 </script>

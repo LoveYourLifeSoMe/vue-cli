@@ -1,6 +1,6 @@
 <template>
 	<div id="index">
-		<router-view/>
+		<router-view class="animated fadeInDown"/>
 		<Footer></Footer>
 	</div>
 </template>
@@ -12,24 +12,20 @@
 	-moz-osx-font-smoothing: grayscale;
 	text-align: center;
 	color: #2c3e50;
-	font-size: 20px;
+	// font-size: 200px;
 }
 </style>
 <script>
 import { Toast } from "mint-ui";
 import Footer from "../components/Footer.vue";
 export default {
-	data(){
-		return {
-
-		}
+	data() {
+		return {};
 	},
 	components: {
 		Footer
 	},
-	mounted() {
-
-	}
+	mounted() {}
 };
 </script>
 

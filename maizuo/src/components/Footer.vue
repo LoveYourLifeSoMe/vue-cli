@@ -1,25 +1,32 @@
 <template id="footer">
 	<mt-tabbar v-model="selected">
-		<mt-tab-item id="外卖">
-			<!-- <img slot="icon" src="../assets/100x100.png"> -->
-			外卖
+		<mt-tab-item id="电影">
+			<p class="icon iconfont icon-tips" @click="$router.push({name:'home'})"></p>电影
 		</mt-tab-item>
-		<mt-tab-item id="订单">
-			<!-- <img slot="icon" src="../assets/100x100.png"> -->
-			订单
-		</mt-tab-item>
-		<mt-tab-item id="发现">
-			<!-- <img slot="icon" src="../assets/100x100.png"> -->
-			发现
+		<mt-tab-item id="影院">
+			<p class="icon iconfont icon-tips" @click="$router.push({name:'movie'})"></p>影院
 		</mt-tab-item>
 		<mt-tab-item id="我的">
-			<!-- <img slot="icon" src="../assets/100x100.png"> -->
-			我的
+			<p class="icon iconfont icon-tips" @click="$router.push({name:'about'})"></p>我的
 		</mt-tab-item>
 	</mt-tabbar>
 </template>
 
 <script>
 import { Tabbar, TabItem } from "mint-ui";
-export default {};
+export default {
+	data() {
+		return {
+			selected: ""
+		};
+	},
+	created() {
+		if (sessionStorage.selected) {
+			this.selected = sessionStorage.selected;
+		} else {
+			this.selected = "电影";
+			sessionStorage.selected = this.selected;
+		}
+	}
+};
 </script>

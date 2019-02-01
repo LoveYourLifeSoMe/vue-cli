@@ -1,7 +1,7 @@
 <template>
 	<div id="city">
-		<Header title="关于" :showRight="false" :showLeft="false"></Header>
-		<h3>this is about</h3>
+		<Header title="电影"></Header>
+		<h3>this is movie</h3>
 	</div>
 </template>
 <script>

@@ -5,6 +5,7 @@ import Index from "./views/Index.vue";
 import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import City from "./views/City.vue";
+import Movie from "./views/Movie.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -24,6 +25,11 @@ export default new Router({
           path: "about",
           name: "about",
           component: About
+        },
+        {
+          path: "movie",
+          name: "movie",
+          component: Movie
         },
         {
           path: "*",

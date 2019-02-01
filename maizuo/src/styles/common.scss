@@ -1,7 +1,10 @@
 $yh:"Microsoft yahei";
 
 
-html {
+html,
+body {
+    width: 100%;
+    // height: 100%;
     font-size: 100%;
     font-family: $yh;
     // font-size: calc(100vw/6.4); // 移动端 适配
