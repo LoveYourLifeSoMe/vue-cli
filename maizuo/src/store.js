@@ -38,6 +38,13 @@ export default new Vuex.Store({
         callback(res.data);
         commit("getCity", res.data);
       });
+    },
+    getMovie({ commit }, { url, params, callback }) {
+      axios.get(url, { params }).then(res => {
+        callback(res.data);
+        console.log(res.data);
+        commit("getMovie", res.data);
+      });
     }
   }
 });

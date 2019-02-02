@@ -1,6 +1,7 @@
 <template>
 	<div id="index">
 		<router-view class="animated fadeInDown"/>
+		<div id="space"></div>
 		<Footer></Footer>
 	</div>
 </template>
@@ -28,4 +29,14 @@ export default {
 	mounted() {}
 };
 </script>
+
+<style lang="scss" scoped>
+#space {
+	margin-bottom: 60px;/*no*/
+}
+#index{
+	position: relative;
+}
+</style>
+
 
