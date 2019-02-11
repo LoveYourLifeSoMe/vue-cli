@@ -6,7 +6,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cityList: null
+    cityList: null,
+    movieDetail: null,
+    moviePic: null
   },
   getters: {
     getCityList(state) {
@@ -30,6 +32,12 @@ export default new Vuex.Store({
   mutations: {
     getCity(state, getCity) {
       state.cityList = getCity;
+    },
+    getMovieDetail(state, getMovieDetail) {
+      state.movieDetail = getMovieDetail;
+    },
+    getMoviePic(state, getMoviePic) {
+      state.moviePic = getMoviePic;
     }
   },
   actions: {
@@ -41,9 +49,20 @@ export default new Vuex.Store({
     },
     getMovie({ commit }, { url, params, callback }) {
       axios.get(url, { params }).then(res => {
+        callback(res.data.subjects);
+        commit("getMovie", res.data.subjects);
+      });
+    },
+    getMovieDetail({ commit }, { url, params, callback }) {
+      axios.get(url, { params }).then(res => {
         callback(res.data);
-        console.log(res.data);
-        commit("getMovie", res.data);
+        commit("getMovieDetail", res.data);
+      });
+    },
+    getMoviePic({ commit }, { url, params, callback }) {
+      axios.get(url, { params }).then(res => {
+        callback(res.data);
+        commit("getMoviePic", res.data.photos);
       });
     }
   }

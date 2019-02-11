@@ -6,6 +6,7 @@ import Home from "./views/Home.vue";
 import About from "./views/About.vue";
 import City from "./views/City.vue";
 import Movie from "./views/Movie.vue";
+import MovieDetail from "./views/MovieDetail.vue";
 Vue.use(Router);
 
 export default new Router({
@@ -38,6 +39,11 @@ export default new Router({
           }
         }
       ]
+    },
+    {
+      path: "/movieDetail",
+      name: "movieDetail",
+      component: MovieDetail
     },
     {
       path: "/city",

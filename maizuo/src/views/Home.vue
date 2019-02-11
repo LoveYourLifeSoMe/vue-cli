@@ -95,10 +95,11 @@ export default {
 				apikey: "0b2bdeda43b5688921839c8ecb20399b",
 				city: this.city,
 				start: 0,
-				count: 2
+				count: 20
 			},
 			callback: res => {
 				console.log(res);
+				this.list = res;
 			}
 		});
 	}
